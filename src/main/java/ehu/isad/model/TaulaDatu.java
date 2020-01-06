@@ -1,102 +1,76 @@
 package ehu.isad.model;
 
-import javafx.scene.control.CheckBox;
 import javafx.scene.image.Image;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.sql.Date;
-
+import java.text.DateFormatSymbols;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class TaulaDatu {
 
-    private Integer argazkiId;
-    private Image argazkia;
-    private String izena;
-    private String etiketak;
-    private Date data;
-    private String deskribapena;
-    private Integer favs;
-    private String comments;
-    private CheckBox checkBox;
+    private Integer id;
+    private String filename;
+    private String value;
+    private String date;
+    private Image irudia;
 
-    public TaulaDatu(Integer pArgazkiId, String argazkiapath, String izena, String etiketak, Date data, String desk, Integer favs, Integer comments) {
+    public TaulaDatu(Integer id, String filename, String value, String date) {
+        this.id = id;
+        this.filename = filename;
+        this.value = value;
+
+        long i = Long.parseLong(date);
+        Date d = new Date(i);
+        SimpleDateFormat sdf = new SimpleDateFormat("MM dd, yy");
+        String newFormat = sdf.format(d);
+        Integer hilabetea = Integer.parseInt(newFormat.split(" ")[0]);
+        String hilIzen = new DateFormatSymbols().getMonths()[hilabetea-1].substring(0,3);
+        char aux = hilIzen.charAt(0);
+        String aux2 = Character.toString(aux).toUpperCase();
+        newFormat = newFormat.substring(2);
+        hilIzen = aux2 + hilIzen.substring(1);
+        this.date = hilIzen + newFormat;
+
+//        String irudiKarpeta = "/home/ekaitzhara/Documentos/UNI/irudiak_azt19/";
+//        irudiKarpeta = irudiKarpeta.replace('/', File.separatorChar);
+//        String irudiPath = irudiKarpeta + filename;
+        String azterketarakoKarpeta = "/home/ekaitzhara/Documentos/UNI/InformazioSistemenAnalisia/3_partziala/irudiak_azterketa2020/";
+//        this.irudia = new Image("irudiak/" + filename);
         InputStream targetStream = null;
         try {
-            targetStream = new FileInputStream(new File(argazkiapath));
+            targetStream = new FileInputStream(new File(azterketarakoKarpeta + filename));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        this.argazkiId = pArgazkiId;
-        this.argazkia = new Image(targetStream);
-        this.izena = izena;
-        this.etiketak = etiketak;
-        this.data = data;
-        this.deskribapena = desk;
-        this.favs = favs;
-        this.comments = "Comment here";
-        this.checkBox = new CheckBox();
+
+        this.irudia = new Image(targetStream);
     }
 
-    public Integer getArgazkiId() {
-        return argazkiId;
+    public Integer getId() {
+        return id;
     }
 
-    public Image getArgazkia() {
-        return argazkia;
+    public String getFilename() {
+        return filename;
     }
 
-    public String getIzena() {
-        return izena;
+    public String getValue() {
+        return value;
     }
 
-    public String getEtiketak() {
-        return etiketak;
+    public String getDate() {
+        return date;
     }
 
-    public Date getData() {
-        return data;
+    public Image getIrudia() {
+        return irudia;
     }
 
-    public String getDeskribapena() {
-        return deskribapena;
-    }
-
-    public Integer getFavs() {
-        return favs;
-    }
-
-    public String getComments() {
-        return comments;
-    }
-
-    public CheckBox getCheckBox() {
-        return checkBox;
-    }
-
-    public void setIzena(String izena) {
-        this.izena = izena;
-    }
-
-    public void setEtiketak(String etiketak) {
-        this.etiketak = etiketak;
-    }
-
-    public void setData(Date data) {
-        this.data = data;
-    }
-
-    public void setDeskribapena(String deskribapena) {
-        this.deskribapena = deskribapena;
-    }
-
-    public void setComments(String comments) {
-        this.comments = comments;
-    }
-
-    public void setCheckBox(CheckBox checkBox) {
-        this.checkBox = checkBox;
+    public void setValue(String value) {
+        this.value = value;
     }
 }

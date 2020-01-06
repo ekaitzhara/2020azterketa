@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+<BorderPane fx:id="bordes" prefHeight="500.0" prefWidth="800.0" stylesheets="@../css/tableviewOna.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ehu.isad.kud.NagusiKud">
+   <center>
+      <TableView fx:id="tbData" prefHeight="445.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="id" prefWidth="59.0" text="id" />
+          <TableColumn fx:id="path" prefWidth="266.0" text="path" />
+            <TableColumn fx:id="content" minWidth="0.0" prefWidth="139.0" text="content" />
+            <TableColumn fx:id="date" prefWidth="144.0" text="date" />
+            <TableColumn fx:id="irudia" prefWidth="191.0" text="irudia" />
+        </columns>
+      </TableView>
+   </center>
+   <bottom>
+      <HBox alignment="CENTER_LEFT" prefHeight="48.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#txertatuKlik" text="Txertatu">
+               <HBox.margin>
+                  <Insets left="30.0" />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#gordeKlik" text="Gorde">
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </Button>
+            <Label fx:id="proba" text="mysql_proba">
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>

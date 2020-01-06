@@ -1,13 +1,10 @@
 package ehu.isad.db;
-import ehu.isad.flickrKud.Utils;
 
 import java.io.File;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Connection;
-import java.sql.Statement;
-
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.*;
+import java.util.Properties;
 
 
 public class DBKudeatzaile {
@@ -16,8 +13,23 @@ public class DBKudeatzaile {
 
 	private void conOpen() {
 		try {
+
+			// setup.properties
+			Properties properties = null;
+			InputStream in = null;
+			try {
+				in = DBKudeatzaile.class.getResourceAsStream("/setup.properties");
+				properties = new Properties();
+				properties.load(in);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+
 			//String url = "jdbc:sqlite::resource:dasiapp.db";
-			String sqlite_path = Utils.globalPath("/data/dasiapp.db");
+//			String sqlite_path = "/home/ekaitzhara/Documentos/UNI/InformazioSistemenAnalisia/3_partziala/datubasea.db";
+			String sqlite_path = properties.getProperty("sqlite_path");;
+			sqlite_path = sqlite_path.replace('/', File.separatorChar);
 			String url = "jdbc:sqlite:" + sqlite_path;
 			//url=url.replace("resources/main/main/", "data/dasiapp.db");
 			System.out.println(url);
